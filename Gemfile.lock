@@ -17,9 +17,14 @@ GEM
     arel (5.0.1.20140414130214)
     bond (0.5.1)
     builder (3.2.2)
+    faraday (0.9.0)
+      multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.9.1)
+      faraday (>= 0.7.4, < 0.10)
     i18n (0.6.11)
     json (1.8.1)
     minitest (5.4.0)
+    multipart-post (2.0.0)
     pg (0.17.1)
     rack (1.5.2)
     rack-flash3 (1.0.5)
@@ -36,6 +41,7 @@ GEM
       rack (>= 1.0)
       rack-test (~> 0.6.2)
       ripl (>= 0.7.0)
+    simple_oauth (0.2.0)
     sinatra (1.4.5)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -55,6 +61,10 @@ GEM
       sinatra (>= 1.2.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    yelp (2.0.2)
+      faraday (~> 0.8, >= 0.8.0)
+      faraday_middleware (~> 0.8, >= 0.8.0)
+      simple_oauth (~> 0.2, >= 0.2.0)
 
 PLATFORMS
   ruby
@@ -68,3 +78,4 @@ DEPENDENCIES
   sinatra-redirect-with-flash
   sqlite3
   tux
+  yelp
