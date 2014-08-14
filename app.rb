@@ -4,6 +4,8 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require './environments'
 require 'yelp'
+require 'json'
+
 set :sessions, true
 use Rack::Flash
 set :bind, '0.0.0.0'
@@ -21,12 +23,22 @@ class Plan < ActiveRecord::Base
   validates :restaurant5, presence: true
 end
 
-@client = Yelp::Client.new({ consumer_key: q_5VHCkxQcT1B4hxcCM_2w,
-                            consumer_secret: 4HOFnWO9NT0anZexVqmiVyKzp5Q,
-                            token: oBXssmNMaG2_AiyF0zG2XYEe185eLu89,
-                            token_secret: VKIIJWYw2Qc-XBlwhQzDxs1i5DY
-                          })
 
 get "/" do
+ erb :index
+end
 
+get '/search/:terms' do
+  client = Yelp::Client.new({ consumer_key: "q_5VHCkxQcT1B4hxcCM_2w",
+                              consumer_secret: "4HOFnWO9NT0anZexVqmiVyKzp5Q",
+                              token: "oBXssmNMaG2_AiyF0zG2XYEe185eLu89",
+                              token_secret: "VKIIJWYw2Qc-XBlwhQzDxs1i5DY"
+                            })
+
+  response = client.search("Austin+#{params[:terms]}")
+  search_results = JSON.parse(response.to_json)
+  first_name = search_results["businesses"].first["name"]
+  first_url = search_results["businesses"].first["url"]
+
+  "<h2><a href='#{first_url}'>#{first_name}</a></h2>"
 end
