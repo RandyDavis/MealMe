@@ -10,7 +10,7 @@ set :sessions, true
 use Rack::Flash
 set :bind, '0.0.0.0'
 
-class Plan < ActiveRecord::Base
+class MealPlan < ActiveRecord::Base
   validates :homemade1, presence: true
   validates :homemade2, presence: true
   validates :homemade3, presence: true
@@ -21,6 +21,8 @@ class Plan < ActiveRecord::Base
   validates :restaurant3, presence: true
   validates :restaurant4, presence: true
   validates :restaurant5, presence: true
+  has_many  :meals
+  has_many  :plans
 end
 
 
