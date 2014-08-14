@@ -3,6 +3,7 @@ require 'sinatra/redirect_with_flash'
 require 'sinatra'
 require 'sinatra/activerecord'
 require './environments'
+require 'yelp'
 set :sessions, true
 use Rack::Flash
 
@@ -18,6 +19,14 @@ class Plan < ActiveRecord::Base
   validates :restaurant4, presence: true
   validates :restaurant5, presence: true
 end
+
+@client = Yelp::Client.new({ consumer_key: YOUR_CONSUMER_KEY,
+                            consumer_secret: YOUR_CONSUMER_SECRET,
+                            token: YOUR_TOKEN,
+                            token_secret: YOUR_TOKEN_SECRET
+                          })
+
+<!DOCTYPE html>
 
 get "/" do
 
