@@ -30,23 +30,36 @@ get "/" do
  erb :index
 end
 
-get '/search' do
+get "/newPlan" do
+  erb :newPlan
+end
+
+post "/newPlan" do
+  data = {
+    term: params["restaurant"],
+    limit: 3
+  }
+
   client = Yelp::Client.new({ consumer_key: "q_5VHCkxQcT1B4hxcCM_2w",
                               consumer_secret: "4HOFnWO9NT0anZexVqmiVyKzp5Q",
                               token: "oBXssmNMaG2_AiyF0zG2XYEe185eLu89",
                               token_secret: "VKIIJWYw2Qc-XBlwhQzDxs1i5DY"
                             })
-  params = { term: 'franks',
-           limit: 3,
-           # category_filter: 'discgolf'
-         }
 
-locale = { lang: 'fr' }
-
-response = client.search('Austin', params, locale)
+  response = client.search('Austin', params, locale)
   search_results = JSON.parse(response.to_json)
   first_name = search_results["businesses"].first["name"]
   first_url = search_results["businesses"].first["url"]
 
-  "<h2><a href='#{first_url}'>#{first_name}</a></h2>"
+  @restaurant = first_name
+  @url = first_url
+
+  erb :newPlan
 end
+
+
+
+
+
+
+
