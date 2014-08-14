@@ -28,14 +28,20 @@ get "/" do
  erb :index
 end
 
-get '/search/:terms' do
+get '/search' do
   client = Yelp::Client.new({ consumer_key: "q_5VHCkxQcT1B4hxcCM_2w",
                               consumer_secret: "4HOFnWO9NT0anZexVqmiVyKzp5Q",
                               token: "oBXssmNMaG2_AiyF0zG2XYEe185eLu89",
                               token_secret: "VKIIJWYw2Qc-XBlwhQzDxs1i5DY"
                             })
+  params = { term: 'food',
+           limit: 3,
+           category_filter: 'discgolf'
+         }
 
-  response = client.search("Austin+#{params[:terms]}")
+locale = { lang: 'fr' }
+
+client.search('San Francisco', params, locale)
   search_results = JSON.parse(response.to_json)
   first_name = search_results["businesses"].first["name"]
   first_url = search_results["businesses"].first["url"]
