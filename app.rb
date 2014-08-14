@@ -6,6 +6,7 @@ require './environments'
 require 'yelp'
 set :sessions, true
 use Rack::Flash
+set :bind, '0.0.0.0'
 
 class Plan < ActiveRecord::Base
   validates :homemade1, presence: true
@@ -20,13 +21,11 @@ class Plan < ActiveRecord::Base
   validates :restaurant5, presence: true
 end
 
-@client = Yelp::Client.new({ consumer_key: YOUR_CONSUMER_KEY,
-                            consumer_secret: YOUR_CONSUMER_SECRET,
-                            token: YOUR_TOKEN,
-                            token_secret: YOUR_TOKEN_SECRET
+@client = Yelp::Client.new({ consumer_key: q_5VHCkxQcT1B4hxcCM_2w,
+                            consumer_secret: 4HOFnWO9NT0anZexVqmiVyKzp5Q,
+                            token: oBXssmNMaG2_AiyF0zG2XYEe185eLu89,
+                            token_secret: VKIIJWYw2Qc-XBlwhQzDxs1i5DY
                           })
-
-<!DOCTYPE html>
 
 get "/" do
 
