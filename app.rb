@@ -12,8 +12,6 @@ set :sessions, true
 use Rack::Flash
 set :bind, '0.0.0.0'
 
-class MealPlan < ActiveRecord::Base
-
 # api_host = 'api.yelp.com'
 
 # consumer = OAuth::Consumer.new(consumer_key, consumer_secret, {:site => "http://#{api_host}"})
@@ -23,7 +21,7 @@ class MealPlan < ActiveRecord::Base
 
 # yelp_data = JSON(access_token.get(path).body). 
 
-class Plan < ActiveRecord::Base
+class MealPlan < ActiveRecord::Base
   validates :homemade1, presence: true
   validates :homemade2, presence: true
   validates :homemade3, presence: true

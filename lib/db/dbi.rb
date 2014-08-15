@@ -3,7 +3,7 @@ require 'pry-byebug'
 
 module Meal
   class DBI
-    def in
+    
   end
 
 
