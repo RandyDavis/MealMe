@@ -5,7 +5,7 @@ class CreateUser < ActiveRecord::Migration
       u.string     :password
       u.references :plans
       # has_many     :meals
-      # has_many     :plans
+      has_many     :plans, :through => :meals
       u.timestamps
     end
   end
