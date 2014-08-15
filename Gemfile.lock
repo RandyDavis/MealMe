@@ -32,6 +32,7 @@ GEM
     method_source (0.8.2)
     minitest (5.4.0)
     multipart-post (2.0.0)
+    oauth (0.4.7)
     pg (0.17.1)
     pry (0.10.0)
       coderay (~> 1.1.0)
@@ -86,6 +87,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  oauth
   pg
   pry-byebug
   rack-flash3

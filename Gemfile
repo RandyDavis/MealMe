@@ -8,6 +8,7 @@ gem "sinatra-activerecord"
 gem "rack-flash3"
 gem "sinatra-redirect-with-flash"
 gem 'yelp', require: 'yelp'
+gem 'oauth'
 
 group :development do
   gem 'sqlite3'
