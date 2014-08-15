@@ -10,6 +10,7 @@ gem "sinatra-redirect-with-flash"
 gem 'yelp', require: 'yelp'
 gem 'oauth'
 gem 'bcrypt'
+gem 'shotgun'
 
 group :development do
   gem 'sqlite3'

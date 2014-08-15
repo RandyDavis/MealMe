@@ -2,7 +2,7 @@ class CreateUser < ActiveRecord::Migration
   def self.up
     create_table :users do |u|
       u.string     :username
-      u.string     :password_hash
+      u.string     :password_digest
       u.references :plans
       # has_many     :meals
       has_many     :plans, :through => :meals
