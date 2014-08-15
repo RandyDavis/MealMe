@@ -137,9 +137,16 @@ post "/newPlan" do
 end
 
 
+post '/saverestaurants' do
+  restaurants = params.values.map { |x| x.split("xx") }
 
+  restaurants.each do |r|
+    # r.first is the restaurant name. r.last is the category
+    some_method_to_save_in_db(r.first, r.last)
+  end
 
-
+  redirect to '/newPlan'
+end
 
 
 
