@@ -74,7 +74,10 @@ post "/newPlan" do
 
   search_response = JSON(access_token.get(path).body)
 
-  "<a href='#{search_response['businesses'].first['url']}'>#{search_response['businesses'].first['name']}</a>"
+  @restaurant = search_response['businesses'].first['name']
+  @url = search_response['businesses'].first['url']
+
+  # "<a href='#{search_response['businesses'].first['url']}'>#{search_response['businesses'].first['name']}</a>"
 
   # response = client.search('Austin', data)#, { lang: 'en' })
   # search_results = JSON.parse(response.to_json)
@@ -86,6 +89,11 @@ post "/newPlan" do
 
   # erb :newPlan
 end
+
+get '/signup' do
+  erb :signup
+end
+
 
 
 
