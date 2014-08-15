@@ -40,12 +40,12 @@ class User < ActiveRecord::Base
   has_many :plans
 end
 
-class Meal
-  has_many :plans, through: :plan_meals
+class Meal < ActiveRecord::Base
+  has_many :plans, :through => :plan_meals
   has_many :plan_meals
 end
 
-class Plan
+class Plan < ActiveRecord::Base
   has_many :meals, through: :plan_meals
   has_many :plan_meals
   has_one :users
