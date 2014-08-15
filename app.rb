@@ -5,12 +5,25 @@ require 'sinatra/activerecord'
 require './environments'
 require 'yelp'
 require 'json'
+require 'oauth'
+require 'pry-byebug'
 
 set :sessions, true
 use Rack::Flash
 set :bind, '0.0.0.0'
 
 class MealPlan < ActiveRecord::Base
+
+# api_host = 'api.yelp.com'
+
+# consumer = OAuth::Consumer.new(consumer_key, consumer_secret, {:site => "http://#{api_host}"})
+# access_token = OAuth::AccessToken.new(consumer, token, token_secret)
+
+# path = “/v2/search?term=restaurant&location=austin”
+
+# yelp_data = JSON(access_token.get(path).body). 
+
+class Plan < ActiveRecord::Base
   validates :homemade1, presence: true
   validates :homemade2, presence: true
   validates :homemade3, presence: true
@@ -34,27 +47,46 @@ get "/newPlan" do
   erb :newPlan
 end
 
+
 post "/newPlan" do
+  # binding.pry
+
   data = {
-    term: params["restaurant"],
+    term: params["Restaurant"],
     limit: 3
   }
 
-  client = Yelp::Client.new({ consumer_key: "q_5VHCkxQcT1B4hxcCM_2w",
-                              consumer_secret: "4HOFnWO9NT0anZexVqmiVyKzp5Q",
-                              token: "oBXssmNMaG2_AiyF0zG2XYEe185eLu89",
-                              token_secret: "VKIIJWYw2Qc-XBlwhQzDxs1i5DY"
-                            })
+  p data
 
-  response = client.search('Austin', params, locale)
-  search_results = JSON.parse(response.to_json)
-  first_name = search_results["businesses"].first["name"]
-  first_url = search_results["businesses"].first["url"]
+  # client = Yelp::Client.new({ consumer_key: "q_5VHCkxQcT1B4hxcCM_2w",
+  #                             consumer_secret: "4HOFnWO9NT0anZexVqmiVyKzp5Q",
+  #                             token: "udKMZsaQQ5B3UuXNob4jHtOuzPW4scNl",
+  #                             token_secret: "qXl5GqbmqxR-Mk6J9QuCen-84Bc"
+  #                           })
 
-  @restaurant = first_name
-  @url = first_url
+  consumer_key = "q_5VHCkxQcT1B4hxcCM_2w"
+  consumer_secret = "4HOFnWO9NT0anZexVqmiVyKzp5Q"
+  token = "udKMZsaQQ5B3UuXNob4jHtOuzPW4scNl"
+  token_secret = "qXl5GqbmqxR-Mk6J9QuCen-84Bc"
 
-  erb :newPlan
+  path = "/v2/search?term=restaurants+#{params['Restaurant']}&location=austin"
+
+  consumer = OAuth::Consumer.new(consumer_key, consumer_secret, {:site => "http://api.yelp.com"})
+  access_token = OAuth::AccessToken.new(consumer, token, token_secret)
+
+  search_response = JSON(access_token.get(path).body)
+
+  "<a href='#{search_response['businesses'].first['url']}'>#{search_response['businesses'].first['name']}</a>"
+
+  # response = client.search('Austin', data)#, { lang: 'en' })
+  # search_results = JSON.parse(response.to_json)
+  # first_name = search_results["businesses"].first["name"]
+  # first_url = search_results["businesses"].first["url"]
+
+  # @restaurant = first_name
+  # @url = first_url
+
+  # erb :newPlan
 end
 
 
