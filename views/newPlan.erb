@@ -1,72 +1,47 @@
+<% if @search_response %>
 <table class="table table-hover">
    <caption>Meals</caption>
    <thead>
       <tr>
          <th>Name</th>
-         <th>Category</th>
          <th>Website</th>
+         <th>Category</th>
+         <th>Address</th>
+         <th>
+            <form action='/saverestaurants' method="POST">
+               <input type="submit" value="Submit">
+            </form>
+         </th>
       </tr>
    </thead>
    <tbody>
+   <% @search_response["businesses"].each_with_index do |res, index| %>
       <tr>
-         <td><%= @restaurant %></td>
-         <td><%= @url %></td>
-         <td></td>
+         <td><%= res["name"] %></td>
+         <td><a href="<%= res["url"] %>">Site</a></td>
+         <td><%= res["categories"].map { |x| x.first }.join(", ") %></td>
+         <td><%= res["location"]["display_address"].join(" ") %></td>
+         <td>
+            <input type="checkbox" value="<%= res["name"] %>" name="rest_<%= index %>"> 
+         </td>
       </tr>
-      <tr>
-         <td>Sachin</td>
-         <td>Restaurant</td>
-         <td>400003</td>
-      </tr>
-      <tr>
-         <td>Uma</td>
-         <td>Restaurant</td>
-         <td>411027</td>
-      </tr>
-      <tr>
-         <td>Uma</td>
-         <td>Restaurant</td>
-         <td>411027</td>
-      </tr>
-      <tr>
-         <td>Uma</td>
-         <td>Home Cooked Meals</td>
-         <td>411027</td>
-      </tr>
-      <tr>
-         <td>Uma</td>
-         <td>Home Cooked Meals</td>
-         <td>411027</td>
-      </tr>
-      <tr>
-         <td>Uma</td>
-         <td>Home Cooked Meals</td>
-         <td>411027</td>
-      </tr>
-      <tr>
-         <td>Uma</td>
-         <td>Home Cooked Meals</td>
-         <td>411027</td>
-      </tr>
-      <tr>
-         <td>Uma</td>
-         <td>Home Cooked Meals</td>
-         <td>411027</td>
-      </tr>
-      <tr>
-         <td>Uma</td>
-         <td>Home Cooked Meals</td>
-         <td>411027</td>
-      </tr>
+   <% end %>
    </tbody>
 </table>
+<% end %>
+
 
 <div class="col-lg-4">
+            <form action="POST" >
+         <input type="submit" value="Submit">
+            </form>
+            </div>
+
     <div class="input-group">
     <form action='/newPlan' method="post">
-      <input type="text" class="form-control" name='Restaurant' placeholder="write something">
+      <input type="text" class="form-control" name='Restaurant' placeholder="Seach for a restaurant in Austin, TX">
       <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Add a meal !!!</button>
+        <input type='submit' class="btn btn-default" value='SEARCH'></button>
       </span>
       </form>
     </div><!-- /input-group -->

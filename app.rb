@@ -40,12 +40,12 @@ class User < ActiveRecord::Base
   has_many :plans
 end
 
-class Meal
+class Meal < ActiveRecord::Base
   has_many :plans, through: :plan_meals
   has_many :plan_meals
 end
 
-class Plan
+class Plan < ActiveRecord::Base
   has_many :meals, through: :plan_meals
   has_many :plan_meals
   has_one :users
@@ -86,10 +86,10 @@ post "/newPlan" do
   consumer = OAuth::Consumer.new(consumer_key, consumer_secret, {:site => "http://api.yelp.com"})
   access_token = OAuth::AccessToken.new(consumer, token, token_secret)
 
-  search_response = JSON(access_token.get(path).body)
+  @search_response = JSON(access_token.get(path).body)
 
-  @restaurant = search_response['businesses'].first['name']
-  @url = search_response['businesses'].first['url']
+  # @restaurant = search_response['businesses'].first['name']
+  # @url = search_response['businesses'].first['url']
 
   # "<a href='#{search_response['businesses'].first['url']}'>#{search_response['businesses'].first['name']}</a>"
 
@@ -101,12 +101,10 @@ post "/newPlan" do
   # @restaurant = first_name
   # @url = first_url
 
-  # erb :newPlan
+  erb :newPlan
 end
 
-get '/signup' do
-  erb :signup
-end
+
 
 
 
