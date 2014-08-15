@@ -7,6 +7,7 @@ require 'yelp'
 require 'json'
 require 'oauth'
 require 'pry-byebug'
+require 'bcrypt'
 
 set :sessions, true
 use Rack::Flash
@@ -20,6 +21,18 @@ set :bind, '0.0.0.0'
 # path = “/v2/search?term=restaurant&location=austin”
 
 # yelp_data = JSON(access_token.get(path).body). 
+
+before do
+  def login
+    @user = User.find_by_id(params[:id])
+    if @user.password == params[:password_digest]
+      redirect_to "/planning", :notice => 'Successfully signed in!'
+    else
+      redirect_to "/login", :error => 'Something went wrong.  Try again.  (This message will disappear in 4 seconds.)'
+    end
+  end
+end
+
 
 class MealPlan < ActiveRecord::Base
   validates :homemade1, presence: true
@@ -38,6 +51,24 @@ end
 
 class User < ActiveRecord::Base
   has_many :plans
+
+  # users.password_digest in the database is a :string
+  include BCrypt
+
+  def password
+    @password ||= Password.new(password_digest)
+  end
+
+  def password=(new_password)
+    @password = Password.create(new_password)
+    self.password_digest = @password
+  end
+
+  # def create
+  #   @user = User.new(params[:user])
+  #   @user.password = params[:password]
+  #   @user.save!
+  # end
 end
 
 class Meal < ActiveRecord::Base
@@ -58,6 +89,7 @@ end
 get "/newPlan" do
   erb :newPlan
 end
+
 
 
 post "/newPlan" do
