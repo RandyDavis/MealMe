@@ -3,7 +3,7 @@ ruby "2.0.0"
 
 gem 'pry-byebug'
 gem "sinatra"
-gem "activerecord"
+gem 'activerecord'
 gem "sinatra-activerecord"
 gem "rack-flash3"
 gem "sinatra-redirect-with-flash"

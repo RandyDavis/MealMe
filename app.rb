@@ -36,6 +36,20 @@ class MealPlan < ActiveRecord::Base
   has_many  :plans
 end
 
+class User < ActiveRecord::Base
+  has_many :plans
+end
+
+class Meal
+  has_many :plans, through: :plan_meals
+  has_many :plan_meals
+end
+
+class Plan
+  has_many :meals, through: :plan_meals
+  has_many :plan_meals
+  has_one :users
+end
 
 get "/" do
  erb :index
