@@ -102,16 +102,6 @@ post "/newPlan" do
 
   p data
 
-  # client = Yelp::Client.new({ consumer_key: "q_5VHCkxQcT1B4hxcCM_2w",
-  #                             consumer_secret: "4HOFnWO9NT0anZexVqmiVyKzp5Q",
-  #                             token: "udKMZsaQQ5B3UuXNob4jHtOuzPW4scNl",
-  #                             token_secret: "qXl5GqbmqxR-Mk6J9QuCen-84Bc"
-  #                           })
-
-  consumer_key = "q_5VHCkxQcT1B4hxcCM_2w"
-  consumer_secret = "4HOFnWO9NT0anZexVqmiVyKzp5Q"
-  token = "udKMZsaQQ5B3UuXNob4jHtOuzPW4scNl"
-  token_secret = "qXl5GqbmqxR-Mk6J9QuCen-84Bc"
 
   path = "/v2/search?term=restaurants+#{params['Restaurant']}&location=austin"
 
